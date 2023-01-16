@@ -27,3 +27,24 @@ var questions = [
    answer: "console.log",
    },
 ];
+
+function displayQuestion() {
+    choices.innerHTML = "";
+  
+    questionTitle.textContent = questions[questionIndex].questionText;
+    var choiceOne = document.createElement("button");
+    choiceOne.textContent = questions[questionIndex].choices[0];
+    choices.appendChild(choiceOne);
+  
+    var choiceTwo = document.createElement("button");
+    choiceTwo.textContent = questions[questionIndex].choices[1];
+    choices.appendChild(choiceTwo);
+  
+    var choiceThree = document.createElement("button");
+    choiceThree.textContent = questions[questionIndex].choices[2];
+    choices.appendChild(choiceThree);
+  
+    var choiceFour = document.createElement("button");
+    choiceFour.textContent = questions[questionIndex].choices[3];
+    choices.appendChild(choiceFour);
+  }
