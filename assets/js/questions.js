@@ -80,23 +80,55 @@ function checkAnswer(event) {
   }
 }
 
+
+
 function displayQuestion() {
-    choices.innerHTML = "";
+  choices.innerHTML = "";
+
+  questionTitle.textContent = questions[questionIndex].questionText;
+  var choiceOne = document.createElement("button");
+  choiceOne.textContent = questions[questionIndex].choices[0];
+  choices.appendChild(choiceOne);
+
+  var choiceTwo = document.createElement("button");
+  choiceTwo.textContent = questions[questionIndex].choices[1];
+  choices.appendChild(choiceTwo);
+
+  var choiceThree = document.createElement("button");
+  choiceThree.textContent = questions[questionIndex].choices[2];
+  choices.appendChild(choiceThree);
+
+  var choiceFour = document.createElement("button");
+  choiceFour.textContent = questions[questionIndex].choices[3];
+  choices.appendChild(choiceFour);
+}
+
+
+function startQuiz() {
+  questionsScreen.classList.remove("hide");
+  startScreen.classList.add("hide");
+  questionIndex = 0;
+  displayQuestion();
+  starTimer();
+}
+
+function endQuiz() {
+    questionsScreen.classList.add("hide");
+    feedback.classList.add("hide");
+    endScreen.classList.remove("hide");
+    clearInterval(timeInterval);
   
-    questionTitle.textContent = questions[questionIndex].questionText;
-    var choiceOne = document.createElement("button");
-    choiceOne.textContent = questions[questionIndex].choices[0];
-    choices.appendChild(choiceOne);
-  
-    var choiceTwo = document.createElement("button");
-    choiceTwo.textContent = questions[questionIndex].choices[1];
-    choices.appendChild(choiceTwo);
-  
-    var choiceThree = document.createElement("button");
-    choiceThree.textContent = questions[questionIndex].choices[2];
-    choices.appendChild(choiceThree);
-  
-    var choiceFour = document.createElement("button");
-    choiceFour.textContent = questions[questionIndex].choices[3];
-    choices.appendChild(choiceFour);
+    
   }
+
+document.getElementById("start").addEventListener("click", startQuiz);
+choices.addEventListener("click", checkAnswer);
+
+
+// create an empty array and store it in LS whenever I first launch the app (at the top of the
+// js file right after I declare the questions)
+var initials = []
+initials = localStorage.setItem("Initials", initials);
+score = localStorage.setItem("score", timerValue)
+// at the end of the game (maybe inside endQuiz() ) get that array from LS push the object into that array,
+// and push the updated array back into LS
