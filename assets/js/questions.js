@@ -28,6 +28,34 @@ var questions = [
    },
 ];
 
+function checkAnswer(event) {
+  if (event.target.matches("button")) {
+    feedback.classList.remove("hide");
+
+    if (event.target.textContent === questions[questionIndex].answer) {
+      feedback.innerHTML = "Correct!";
+    } else {
+      var timePenalty = 10;
+      if (timerValue < timePenalty) {
+        timerValue = 1;
+        endQuiz();
+      } else {
+        timerValue -= 10;
+      }
+      feedback.innerHTML = "Wrong!";
+    }
+
+    questionIndex++;
+
+    if (questionIndex <= questions.length - 1) {
+      displayQuestion();
+    } else {
+      console.log("Quiz is done");
+      endQuiz();
+    }
+  }
+}
+
 function displayQuestion() {
     choices.innerHTML = "";
   
