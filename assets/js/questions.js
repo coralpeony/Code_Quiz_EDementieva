@@ -1,4 +1,15 @@
-
+var startScreen = document.getElementById("start-screen");
+var endScreen = document.getElementById("end-screen");
+var questionsScreen = document.getElementById("questions");
+var questionTitle = document.getElementById("question-title");
+var choices = document.getElementById("choices");
+var feedback = document.getElementById("feedback");
+var timeContainer = document.getElementById("time");
+var questionIndex = 0;
+var timerValue = 120;
+var timeInterval;
+var finalScore = document.getElementById("final-score")
+var userInitials = document.getElementById("initials");
 
 var questions = [
   {
@@ -27,6 +38,19 @@ var questions = [
    answer: "console.log",
    },
 ];
+
+function starTimer() {
+  function subtractTime(params) {
+    timerValue -= 1;
+    timeContainer.innerText = timerValue;
+
+    if (timerValue === 0) {
+      clearInterval(timeInterval);
+    }
+  }
+
+  timeInterval = setInterval(subtractTime, 1000);
+}
 
 function checkAnswer(event) {
   if (event.target.matches("button")) {
