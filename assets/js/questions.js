@@ -8,7 +8,7 @@ var timeContainer = document.getElementById("time");
 var questionIndex = 0;
 var timerValue = 120;
 var timeInterval;
-var finalScore = document.getElementById("final-score")
+var finalScore = document.getElementById("final-score");
 var userInitials = document.getElementById("initials");
 
 var questions = [
@@ -18,25 +18,33 @@ var questions = [
     answer: "alerts",
   },
   {
-    questionText: "The condition in an if/ else statement is enclosed with _______. ",
+    questionText:
+      "The condition in an if/ else statement is enclosed with _______. ",
     choices: ["quotes", "curly brackets", "parenthesis", "square brackets"],
     answer: "parenthesis",
   },
- {
-   questionText: "Arrays in JavaScript can be used to store ____________.",
-  choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-   answer: "all of the above",
-     },
-    {
-   questionText: "String values must be enclosed within _________ when being assigned to variables.",
-  choices: ["commas", "curly brackets", "quotes", "parenthesis"],
-   answer: "quotes",
-    },
-   {
-   questionText: "A very useful tool used during development and debugging for printing content to the debugger is: ",
-   choices: ["JavaScript", "terminal/bash", "for loops", "console.log"],
-   answer: "console.log",
-   },
+  {
+    questionText: "Arrays in JavaScript can be used to store ____________.",
+    choices: [
+      "numbers and strings",
+      "other arrays",
+      "booleans",
+      "all of the above",
+    ],
+    answer: "all of the above",
+  },
+  {
+    questionText:
+      "String values must be enclosed within _________ when being assigned to variables.",
+    choices: ["commas", "curly brackets", "quotes", "parenthesis"],
+    answer: "quotes",
+  },
+  {
+    questionText:
+      "A very useful tool used during development and debugging for printing content to the debugger is: ",
+    choices: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+    answer: "console.log",
+  },
 ];
 
 function starTimer() {
@@ -80,8 +88,6 @@ function checkAnswer(event) {
   }
 }
 
-
-
 function displayQuestion() {
   choices.innerHTML = "";
 
@@ -103,7 +109,6 @@ function displayQuestion() {
   choices.appendChild(choiceFour);
 }
 
-
 function startQuiz() {
   questionsScreen.classList.remove("hide");
   startScreen.classList.add("hide");
@@ -113,22 +118,20 @@ function startQuiz() {
 }
 
 function endQuiz() {
-    questionsScreen.classList.add("hide");
-    feedback.classList.add("hide");
-    endScreen.classList.remove("hide");
-    clearInterval(timeInterval);
-  
-    
-  }
+  questionsScreen.classList.add("hide");
+  feedback.classList.add("hide");
+  endScreen.classList.remove("hide");
+  clearInterval(timeInterval);
+  finalScore.innerText = timerValue;
+}
 
 document.getElementById("start").addEventListener("click", startQuiz);
 choices.addEventListener("click", checkAnswer);
 
-
 // create an empty array and store it in LS whenever I first launch the app (at the top of the
 // js file right after I declare the questions)
-var initials = []
+var initials = [];
 initials = localStorage.setItem("Initials", initials);
-score = localStorage.setItem("score", timerValue)
+score = localStorage.setItem("score", timerValue);
 // at the end of the game (maybe inside endQuiz() ) get that array from LS push the object into that array,
 // and push the updated array back into LS

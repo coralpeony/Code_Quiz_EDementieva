@@ -25,7 +25,7 @@ THEN the user can save their initials and score.
 
 ![Code-Quiz](./images/screenshot.png)
 
-https://coralpeony.github.io/Password-Generator-EDementieva/
+https://coralpeony.github.io/Code_Quiz_EDementieva/
 
 ## Credits
 
