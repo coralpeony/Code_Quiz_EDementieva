@@ -5,11 +5,13 @@ var questionTitle = document.getElementById("question-title");
 var choices = document.getElementById("choices");
 var feedback = document.getElementById("feedback");
 var timeContainer = document.getElementById("time");
+var finalScore = document.getElementById("final-score");
+var userInitials = document.getElementById("initials");
+var submitBtn = document.getElementById("submit");
+var startBtn = document.getElementById("start");
 var questionIndex = 0;
 var timerValue = 120;
 var timeInterval;
-var finalScore = document.getElementById("final-score");
-var userInitials = document.getElementById("initials");
 
 var questions = [
   {
@@ -47,6 +49,7 @@ var questions = [
   },
 ];
 
+
 function starTimer() {
   function subtractTime(params) {
     timerValue -= 1;
@@ -54,7 +57,9 @@ function starTimer() {
 
     if (timerValue === 0) {
       clearInterval(timeInterval);
+      endQuiz();
     }
+
   }
 
   timeInterval = setInterval(subtractTime, 1000);
@@ -65,16 +70,16 @@ function checkAnswer(event) {
     feedback.classList.remove("hide");
 
     if (event.target.textContent === questions[questionIndex].answer) {
-      feedback.innerHTML = "Correct!";
+      feedback.textContent = "Correct!";
     } else {
-      var timePenalty = 10;
-      if (timerValue < timePenalty) {
+
+      if (timerValue < 10) {
         timerValue = 1;
-        endQuiz();
-      } else {
-        timerValue -= 10;
+        return endQuiz();
       }
-      feedback.innerHTML = "Wrong!";
+      timerValue -= 10;
+      timeContainer.innerText = timerValue;
+      feedback.textContent = "Wrong!";
     }
 
     questionIndex++;
@@ -82,7 +87,6 @@ function checkAnswer(event) {
     if (questionIndex <= questions.length - 1) {
       displayQuestion();
     } else {
-      console.log("Quiz is done");
       endQuiz();
     }
   }
@@ -92,6 +96,7 @@ function displayQuestion() {
   choices.innerHTML = "";
 
   questionTitle.textContent = questions[questionIndex].questionText;
+
   var choiceOne = document.createElement("button");
   choiceOne.textContent = questions[questionIndex].choices[0];
   choices.appendChild(choiceOne);
@@ -125,13 +130,22 @@ function endQuiz() {
   finalScore.innerText = timerValue;
 }
 
-document.getElementById("start").addEventListener("click", startQuiz);
+// saved to local storage
+
+function savedToLS() {
+  const score = JSON.parse(localStorage.getItem("highScore")) || [];
+  const scoreObject = {
+    playerName: userInitials.value,
+    playerScore: timerValue,
+  };
+  //console.log(score, scoreObject);
+  score.push(scoreObject);
+
+  localStorage.setItem("highScore", JSON.stringify(score));
+  location.replace("./highscores.html")
+}
+
+startBtn.addEventListener("click", startQuiz);
 choices.addEventListener("click", checkAnswer);
 
-// create an empty array and store it in LS whenever I first launch the app (at the top of the
-// js file right after I declare the questions)
-var initials = [];
-initials = localStorage.setItem("Initials", initials);
-score = localStorage.setItem("score", timerValue);
-// at the end of the game (maybe inside endQuiz() ) get that array from LS push the object into that array,
-// and push the updated array back into LS
+submitBtn.addEventListener("click", savedToLS);
